@@ -74,37 +74,55 @@ for seq_record in SeqIO.parse(args.fasta, "fasta"):
     time.sleep(3)
     seq_count += 1;
     
+print('Upload finished and wait for identify!!!')
+time.sleep(10)
 driver.refresh()
-print('Upload finished!!!')
 import pandas as pd
 df1 = pd.DataFrame(columns=['Name','Top-hit taxon','Top-hit strain','Similarity','Top-hit taxonomy','Phylum'])
 
 page = seq_count // 25
 res = seq_count % 25
-if(res ==0):
-    for i in range(1, page + 1):
-        for i in range(1, 26):
-            print(i)
-            name = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[3]').text
-            hits = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[4]').text 
-            strain = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[5]').text
-            simi = float(driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[6]').text)
-            taxon = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[7]').text
-            phylum = taxon.split(";")[1]
-            df2 =  pd.DataFrame([[name,hits,strain,simi,taxon,phylum]],columns=['Name','Top-hit taxon','Top-hit strain','Similarity','Top-hit taxonomy','Phylum'])
-            df1 = pd.concat([df1,df2])
-        driver.find_element(By.LINK_TEXT, '›').click()
+
+if(seq_count <= 25):
+    for i in range(1, seq_count+1):
+        i = str(i)
+        name = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[3]').text
+        hits = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[4]').text
+        strain = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[5]').text
+        simi = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[6]').text
+        taxon = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[7]').text
+        phylum = taxon.split(";")[1]
+        df2 =  pd.DataFrame([[name,hits,strain,simi,taxon,phylum]],columns=['Name','Top-hit taxon','Top-hit strain','Similarity','Top-hit taxonomy','Phylum'])
+        df1 = pd.concat([df1,df2],ignore_index=True)
 else:
-    driver.find_element(By.LINK_TEXT, '›').click()
-    for i in range(1, res + 1):
-            name = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[3]').text
-            hits = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[4]').text 
-            strain = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[5]').text
-            simi = float(driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[6]').text)
-            taxon = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr["i"]/td[7]').text
+    for j in range(1, page +1):
+        time.sleep(10)
+        for i in range(1, 26):
+            i = str(i)
+            name = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[3]').text
+            hits = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[4]').text
+            print(hits)
+            strain = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[5]').text
+            simi = float(driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[6]').text)
+            taxon = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[7]').text
             phylum = taxon.split(";")[1]
             df2 =  pd.DataFrame([[name,hits,strain,simi,taxon,phylum]],columns=['Name','Top-hit taxon','Top-hit strain','Similarity','Top-hit taxonomy','Phylum'])
-            df1 = pd.concat([df1,df2])
+            df1 = pd.concat([df1,df2],ignore_index=True)        
+        driver.find_element(By.LINK_TEXT, '›').click()
+    driver.find_element(By.LINK_TEXT, '›').click()
+
+    for i in range(1, res+1):
+        i = str(i)
+        name = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[3]').text
+        hits = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[4]').text
+        print(hits)
+        strain = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[5]').text
+        simi = float(driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[6]').text)
+        taxon = driver.find_element(By.XPATH,'//*[@id="idResultTable"]/tbody/tr[' + i + ']/td[7]').text
+        phylum = taxon.split(";")[1]
+        df2 =  pd.DataFrame([[name,hits,strain,simi,taxon,phylum]],columns=['Name','Top-hit taxon','Top-hit strain','Similarity','Top-hit taxonomy','Phylum'])
+        
+        df1 = pd.concat([df1,df2],ignore_index=True)
 
 df1.to_csv('user_data_ezbiocloud.csv') 
 
