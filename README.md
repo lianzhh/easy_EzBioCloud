@@ -31,4 +31,4 @@ python EZBioCloud_ID_Selenium.py [-i input.fa] [-a account] [-p password]
     -a account
             the email address you registered to sign to EZBioCloud, e.g. lianzhh90@foxmail.com
     -p password
-            *********
+            
