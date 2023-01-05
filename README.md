@@ -26,9 +26,11 @@ The latest version of BrowserMob Proxy is 2.1.5, we installed the released versi
 python EZBioCloud_ID_Selenium.py [-i input.fa] [-a account] [-p password]
 ```
 **Options**
-    -input
-            input fasta file
-    -a account
-            the email address you registered to sign to EZBioCloud, e.g. lianzhh90@foxmail.com
-    -p password
-            
+
+
+      -input
+                            input fasta file
+      -a account
+                            the email address you registered to sign to EZBioCloud, e.g. lianzhh90@foxmail.com
+      -p password
+                            a magic strings, you know! 
