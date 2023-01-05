@@ -29,8 +29,11 @@ python EZBioCloud_ID_Selenium.py [-i input.fa] [-a account] [-p password]
 
 
       -input
-                            input fasta file
+                 input fasta file
       -a account
-                            the email address you registered to sign to EZBioCloud, e.g. lianzhh90@foxmail.com
+                 the email address you registered to sign to EZBioCloud, e.g. lianzhh90@foxmail.com
       -p password
-                            a magic strings, you know! 
+                 a magic strings, you know! 
+                 
+# Contact
+If you have any questions, please email us: lianzhh90@foxmail.com
