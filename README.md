@@ -3,6 +3,7 @@ With batch uploads, 16S rRNA sequences can be automatically searched against EzB
 
 # Requirements
 python ≥ 3.8 
+java runtime environment 
 
 # Installation
 pip install -r requirements.txt
