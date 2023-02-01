@@ -2,7 +2,7 @@
 With batch uploads, 16S rRNA sequences can be automatically searched against EzBioCloud's database for identification.
 
 # Requirements
-python ≥ 3.8 
+python ≥ 3.8
 java runtime environment 
 
 # Installation
